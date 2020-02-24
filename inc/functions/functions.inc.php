@@ -15,6 +15,8 @@ function display_letter_filters($filter){
  
     $letters = range('A','Z');
 
+    // loop through all of the entries with the last name starting with the letter clicked 
+    // and display the data for each one
     for($i=0 ; $i < count($letters) ; $i++){ 
         if ($filter == $letters[$i]) {
             $class = 'class="text-light font-weight-bold p-1 mr-3 bg-dark"';
@@ -30,7 +32,7 @@ function display_letter_filters($filter){
 function display_record_table($result){
     echo '<div class="table-responsive">';
     echo "<table class=\"table table-striped table-hover table-sm mt-4\">";
-    echo '<thead class="thead-dark"><tr><th>Actions</th><th><a href="?sortby=student_id">Student ID</a></th><th><a href="?sortby=first_name">First Name</a></th><th><a href="?sortby=last_name">Last Name</a></th><th><a href="?sortby=email">Email</a></th><th><a href="?sortby=phone">Phone</a></th></tr></thead>';
+    echo '<thead class="thead-dark"><tr><th>Actions</th><th><a href="?sortby=student_id">Student ID</a></th><th><a href="?sortby=first_name">First Name</a></th><th><a href="?sortby=last_name">Last Name</a></th><th><a href="?sortby=email">Email</a></th><th><a href="?sortby=phone">Phone</a></th><th><a href="?sortby=degree_program">Degree Program</a></th><th><a href="?sortby=gpa">GPA</a></th><th><a href="?sortby=financial_aid">Financial Aid</a></th></tr></thead>';
     # $row will be an associative array containing one row of data at a time
     while ($row = $result->fetch_assoc()){
         # display rows and columns of data
@@ -41,6 +43,9 @@ function display_record_table($result){
         echo "<td><strong>{$row['last_name']}</strong></td>";
         echo "<td>{$row['email']}</td>";
         echo "<td>{$row['phone']}</td>";
+        echo "<td>{$row['degree_program']}</td>";
+        echo "<td>{$row['gpa']}</td>";
+        echo "<td>{$row['financial_aid']}</td>";
         echo '</tr>';
     } // end while
     // closing table tag and div
@@ -50,9 +55,11 @@ function display_record_table($result){
 
 
 function display_error_bucket($error_bucket){
-    echo '<p>The following errors were deteced:</p>';
+    echo '<p>The following errors were detected:</p>';
     echo '<div class="pt-4 alert alert-warning" role="alert">';
         echo '<ul>';
+
+        //loop through each of the errors in the error bucket and display on the page
         foreach ($error_bucket as $text){
             echo '<li>' . $text . '</li>';
         }
