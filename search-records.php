@@ -10,10 +10,10 @@ require 'inc/app/config.inc.php';
 <div class="container">
     <div class="row">
         <div class="col-lg-12 mt-4">
-        <?php 
+            <?php
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                if(!empty($_POST['search'])){
-                    $sql = "SELECT * FROM $db_table WHERE " . '"' . $_POST["search"] . '"' . " IN (student_id, first_name, last_name, email, phone, degree_program, gpa, financial_aid) ORDER BY last_name ASC";
+                if (!empty($_POST['search'])) {
+                    $sql = "SELECT * FROM $db_table WHERE " . '"' . $_POST["search"] . '"' . " IN (student_id, first_name, last_name) ORDER BY last_name ASC";
                     //$sql = "SELECT * FROM student WHERE student_id LIKE '%val%' or field2 LIKE '%val%'
                     $result = $db->query($sql);
 
@@ -31,9 +31,9 @@ require 'inc/app/config.inc.php';
                     echo '<img class="mx-auto d-block mt-4" src="img/nosmile.png" alt="A face with no smile">';
                 }
             }
-        ?>
+            ?>
         </div>
     </div>
 </div>
 
-<?php require 'inc/layout/footer.inc.php';?>
+<?php require 'inc/layout/footer.inc.php'; ?>
