@@ -67,4 +67,11 @@ function display_error_bucket($error_bucket){
     echo '</div>';
     echo '<p>All of these fields are required. Please fill them in.</p>';
 }
+
+function echoActiveClassIfRequestMatches($requestUri) {
+    $current_file_name = basename($_SERVER['REQUEST_URI'], ".php");
+
+    if ($current_file_name == $requestUri)
+    echo 'active';
+}
 ?>

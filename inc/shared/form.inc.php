@@ -15,16 +15,16 @@ http://php.net/manual/en/language.operators.comparison.php#language.operators.co
     <input class="form-control" type="text" id="first" name="first" value="<?php echo (isset($first) ? $first: '');?>">
     <br>
     <label class="col-form-label" for="last">Last Name </label>
-    <input class="form-control" type="text" id="last" name="last" value="<?php echo (isset($last) ? $last: '');?>"">
+    <input class="form-control" type="text" id="last" name="last" value="<?php echo (isset($last) ? $last: '');?>">
     <br>
-    <label class="col-form-label" for="id">Student ID </label>
-    <input class="form-control" type="text" id="id" name="id" value="<?php echo (isset($id) ? $id: '');?>"">
+    <label class="col-form-label" for="sid">Student ID </label>
+    <input class="form-control" type="text" id="sid" name="sid" value="<?php echo (isset($sid) ? $sid: '');?>">
     <br>       
     <label class="col-form-label" for="email">Email </label>
-    <input class="form-control" type="text" id="email" name="email" value="<?php echo (isset($email) ? $email: '');?>"">
+    <input class="form-control" type="text" id="email" name="email" value="<?php echo (isset($email) ? $email: '');?>">
     <br>
     <label class="col-form-label" for="phone">Phone </label>
-    <input class="form-control" type="text" id="phone" name="phone" value="<?php echo (isset($phone) ? $phone: '');?>"">
+    <input class="form-control" type="text" id="phone" name="phone" value="<?php echo (isset($phone) ? $phone: '');?>">
     <br>
     <label class="col-form-label" for="degree_program">Degree_program </label>
     <br>
@@ -37,17 +37,18 @@ http://php.net/manual/en/language.operators.comparison.php#language.operators.co
         <option value="Computer Support"<?php echo ($degree_program == 'Computer Support' ? 'selected': '');?>>Computer Support</option>
         <option value="Digital Media Arts"<?php echo ($degree_program == 'Digital Media Arts' ? 'selected': '');?>>Digital Media Arts</option>
     </select>
-    <br>
+    <br><br>
     <label class="col-form-label" for="gpa">GPA </label>
-    <input class="form-control" type="text" id="gpa" name="gpa" value="<?php echo (isset($gpa) ? $gpa: '');?>"">
+    <input class="form-control" type="text" id="gpa" name="gpa" value="<?php echo (isset($gpa) ? $gpa: '');?>">
     <br>
-    <label class="col-form-label" for="financial_aid">Do You Receive Financial_aid </label>
+    <label class="col-form-label" for="financial_aid">Do You Receive Financial aid </label>
     <br> 
     <!-- the echo issets ternaries make the buttons sticky   -->
-        <input type="radio" name="financial_aid" value="1"<?php echo (isset($yes) ? $yes: 'checked="checked"');?>>Yes
-    <br> 
-        <input type="radio" name="financial_aid" value="0"<?php echo (isset($no) ? $no: 'checked="checked"');?>>  No     
+        <input type="radio" class="form-check-input" name="financial_aid" title="select yes or no" value="1"<?php echo (isset($yes) ? $yes: 'checked="checked"');?>>Yes
+    <br><br> 
+        <input type="radio" class="form-check-input" name="financial_aid" title="select yes or no" value="0" <?php echo (isset($no) ? $no: 'checked="checked"');?>>No     
     <br>   
     <a href="display-records.php">Cancel</a>&nbsp;&nbsp;
     <button class="btn btn-primary" type="submit">Save Record</button>
+    <input type="hidden" name="id" value="<?php echo (isset($id) ? $id : '');?>">
 </form>
