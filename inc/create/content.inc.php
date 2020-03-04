@@ -12,79 +12,75 @@ $yes = '';
 $no = '';
 $degree_program = '';
 
-if($_SERVER['REQUEST_METHOD']=="POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // First insure that all required fields are filled in
     // series of ifelse statements to either add to error bucket or post input
     if (empty($_POST['first'])) {
         //no first name entered..into the error bucket you go
-        array_push($error_bucket,"<p>A first name is required.</p>");
+        array_push($error_bucket, "<p>A first name is required.</p>");
     } else {
-        
+
         $first = $db->real_escape_string(strip_tags($_POST['first']));
     }
     // checking to see if a last name was filled in
     if (empty($_POST['last'])) {
         // if no last name entered..push to error bucket and ask for one
-        array_push($error_bucket,"<p>A last name is required.</p>");
+        array_push($error_bucket, "<p>A last name is required.</p>");
     } else {
         // assign the last name posted result to last name variable
         $last = $db->real_escape_string(strip_tags($_POST['last']));
     }
     if (empty($_POST['sid'])) {
         // no student id entered..into the bucket you go
-        array_push($error_bucket,"<p>A student ID is required.</p>");
+        array_push($error_bucket, "<p>A student ID is required.</p>");
     } else {
         // assign the posted result of the id field to the id variable
         $sid = $db->real_escape_string(strip_tags($_POST['sid']));
     }
     if (empty($_POST['email'])) {
         // no email entered...into the bucket you go
-        array_push($error_bucket,"<p>An email address is required.</p>");
+        array_push($error_bucket, "<p>An email address is required.</p>");
     } else {
         //assign posted result of email to email variable
         $email = $db->real_escape_string(strip_tags($_POST['email']));
     }
     if (empty($_POST['phone'])) {
         // no phone # entered...into the bucket you go
-        array_push($error_bucket,"<p>A phone number is required.</p>");
+        array_push($error_bucket, "<p>A phone number is required.</p>");
     } else {
         //assign posted result of phone# to phone variable
         $phone = $db->real_escape_string(strip_tags($_POST['phone']));
     }
     if (empty($_POST['degree_program'])) {
         // no degree selected...into the bucket you go
-        array_push($error_bucket,"<p>A Degree program is required.</p>");
+        array_push($error_bucket, "<p>A Degree program is required.</p>");
         $degree_program = '';
     } else {
         // assign selected degree program to degree_program variable
         $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
     }
-        
-    if (empty($_POST['gpa'])) { 
+
+    if (empty($_POST['gpa'])) {
         //same results as above if not entered       
-        array_push($error_bucket,"<p>A GPA is required.</p>");
+        array_push($error_bucket, "<p>A GPA is required.</p>");
     } else {
         //assign posted gpa to gpa variable
         $gpa = $db->real_escape_string(strip_tags($_POST['gpa']));
     }
-    if (!isset($_POST['financial_aid'])) {       
-        array_push($error_bucket,"<p>Financial Aid -  please check yes or no.</p>");
-
+    if (!isset($_POST['financial_aid'])) {
+        array_push($error_bucket, "<p>Financial Aid -  please check yes or no.</p>");
     } else {
         if ($_POST['financial_aid'] == '1') {
             $yes = 'checked';
             $no = '';
-            $financial_aid = "Y";
-            
         } elseif ($_POST['financial_aid'] == '0') {
             $no = 'checked';
             $yes = '';
-            $financial_aid = "N";
         }
-        
+
         $financial_aid = $db->real_escape_string(strip_tags($_POST['financial_aid']) == '1');
     }
-    
+
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
@@ -96,19 +92,19 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         //echo $sql;
 
         // assign the database query results to the result variable
-        $result = $db->query($sql); 
+        $result = $db->query($sql);
 
         // if entry error alert the following statement
         if (!$result) {
             echo '<div class="alert alert-danger" role="alert">
-            I am sorry, but I could not save that record for you. ' .  
-            $db->error . '.</div>';
+            I am sorry, but I could not save that record for you. ' .
+                $db->error . '.</div>';
         } else {
             // if successful data entry alert the following message
             echo '<div class="alert alert-success" role="alert">
             I saved that new record for you!
           </div>';
-          // reset the following variable upon successful data entry
+            // reset the following variable upon successful data entry
             unset($first);
             unset($last);
             unset($sid);
@@ -123,6 +119,4 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     } else {
         display_error_bucket($error_bucket);
     } // end of error bucket
-} 
-
-?>
+}
