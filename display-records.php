@@ -1,7 +1,7 @@
 <?php // Filename: display-records.php
 
 $pageTitle = "Record Management";
-require 'inc/layout/header.inc.php'; 
+require_once 'inc/layout/header.inc.php'; 
 ?>
 <div class="container-fluid">
     <div class="row">

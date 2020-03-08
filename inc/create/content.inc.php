@@ -80,13 +80,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $financial_aid = $db->real_escape_string(strip_tags($_POST['financial_aid']) == '1');
     }
+    if (empty($_POST['grdate'])) {
+        // gr date not entered...into the bucket you go
+        array_push($error_bucket, "<p>Please enter a graduation date</p>");
+    } else {
+        //assign posted result of gr date to grdate variable
+        $grdate = $db->real_escape_string(strip_tags($_POST['grdate']));
+    }
 
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
         // entering the values entered into the corresponding fields
-        $sql = "INSERT INTO $db_table (first_name,last_name,student_id,email,phone,degree_program,gpa,financial_aid) ";
-        $sql .= "VALUES ('$first','$last',$sid,'$email','$phone','$degree_program','$gpa','$financial_aid')";
+        $sql = "INSERT INTO $db_table (first_name,last_name,student_id,email,phone,degree_program,gpa,financial_aid,grdate) ";
+        $sql .= "VALUES ('$first','$last',$sid,'$email','$phone','$degree_program','$gpa','$financial_aid','$grdate')";
 
         // comment in for debug of SQL
         //echo $sql;
@@ -113,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             unset($degree_program);
             unset($gpa);
             unset($financial_aid);
+            unset($grdate);
             $yes = '';
             $no = '';
         }

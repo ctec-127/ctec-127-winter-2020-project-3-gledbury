@@ -36,4 +36,4 @@ require_once 'inc/app/config.inc.php';
     </div>
 </div>
 
-<?php require 'inc/layout/footer.inc.php'; ?>
+<?php require_once 'inc/layout/footer.inc.php'; ?>

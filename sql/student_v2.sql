@@ -37,7 +37,7 @@ CREATE TABLE `student_v2` (
   `phone` varchar(100) NOT NULL,
   `degree_program` varchar(255) NOT NULL,
   `gpa` mediumint(9) NOT NULL,
-  `financial_aid` mediumint(9) NOT NULL,
+  `financial_aid` mediumint(9) NOT NULL, 
   `data_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

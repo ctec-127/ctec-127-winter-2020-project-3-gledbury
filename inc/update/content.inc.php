@@ -73,13 +73,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted gpa to gpa variable
         $gpa = $db->real_escape_string($_POST['gpa']);
     }
+    if (empty($_POST['grdate'])) {
+        // no phone # entered...into the bucket you go
+        array_push($error_bucket, "<p>Please enter your graduation date.</p>");
+    } else {
+        //assign posted result of phone# to phone variable
+        $phone = $db->real_escape_string($_POST['grdate']);
+    }
 
 
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
         // entering the values entered into the corresponding fields
-        $sql = "UPDATE $db_table SET first_name='$first', last_name='$last', student_id=$sid, email='$email', phone='$phone', degree_program='$degree_program', gpa='$gpa', financial_aid='$financial_aid' WHERE id=$id";
+        $sql = "UPDATE $db_table SET first_name='$first', last_name='$last', student_id=$sid, email='$email', phone='$phone', degree_program='$degree_program', gpa='$gpa', financial_aid='$financial_aid', grdate='$grdate' WHERE id=$id";
         // $sql .= "VALUES ('$first','$last',$sid,'$email','$phone','$degree_program','$gpa','$financial_aid')";
 
         // comment in for debug of SQL
@@ -105,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             unset($degree_program);
             unset($gpa);
             unset($financial_aid);
+            unset($grdate);
             unset($id);
             $yes = '';
             $no = '';
@@ -131,6 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $degree_program = $row['degree_program'];
         $gpa = $row['gpa'];
         $financial_aid = $row['financial_aid'];
+        $grdate = $row['grdate'];
     }
     if (!isset($financial_aid)) {
         array_push($error_bucket, "<p>Financial Aid -  please check yes or no.</p>");

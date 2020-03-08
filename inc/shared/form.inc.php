@@ -27,7 +27,7 @@ http://php.net/manual/en/language.operators.comparison.php#language.operators.co
     <label class="col-form-label" for="phone">Phone </label>
     <input class="form-control" type="text" id="phone" name="phone" value="<?php echo (isset($phone) ? $phone : ''); ?>">
     <br>
-    <label class="col-form-label" for="degree_program">Degree_program </label>
+    <label class="col-form-label" for="degree_program">Degree Program </label>
     <br>
     <select name="degree_program" id="degree_program">
         <!-- the echo issets ternaries make the form selections sticky  -->
@@ -49,6 +49,8 @@ http://php.net/manual/en/language.operators.comparison.php#language.operators.co
     <br><br>
     <input type="radio" class="form-check-input" name="financial_aid" title="select yes or no" value="0" <?php echo $no; ?>>No
     <br>
+    <label class="col-form-label" for="grdate">Graduation Date </label>
+    <input class="form-control" type="date" id="grdate" name="grdate" value="<?php echo (isset($grdate) ? $grdate : ''); ?>">
     <a href="display-records.php">Cancel</a>&nbsp;&nbsp;
     <button class="btn btn-primary" type="submit">Save Record</button>
     <input type="hidden" name="id" value="<?php echo (isset($id) ? $id : ''); ?>">
