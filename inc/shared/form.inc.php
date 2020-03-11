@@ -31,7 +31,7 @@ http://php.net/manual/en/language.operators.comparison.php#language.operators.co
     <br>
     <select name="degree_program" id="degree_program">
         <!-- the echo issets ternaries make the form selections sticky  -->
-        <option value="" <?php echo (isset($degree_program) ? $degree_program : ''); ?>>--Select--</option>
+        <option value="" <?php echo (isset($degree_program) ? $degree_program : ''); ?>>--Undecided--</option>
         <option value="Web Development" <?php echo ($degree_program == 'Web Development' ? 'selected' : ''); ?>>Web Development</option>
         <option value="Web Design" <?php echo ($degree_program == 'Web Design' ? 'selected' : ''); ?>>Web Design</option>
         <option value="Network Technology" <?php echo ($degree_program == 'Network Technology' ? 'selected' : ''); ?>>Network Technology</option>
@@ -40,7 +40,9 @@ http://php.net/manual/en/language.operators.comparison.php#language.operators.co
     </select>
     <br><br>
     <label class="col-form-label" for="gpa">GPA </label>
-    <input class="form-control" type="text" id="gpa" name="gpa" value="<?php echo (isset($gpa) ? $gpa : ''); ?>">
+    <!-- <input class="form-control" type="text" id="gpa" name="gpa" value="<?php echo (isset($gpa) ? $gpa : ''); ?>"> -->
+    <input class="form-control" type="float" id="gpa" name="gpa" min="0.0" max="4.0"value="<?php echo (isset($gpa) ? $gpa : ''); ?>">
+
     <br>
     <label class="col-form-label" for="financial_aid">Do You Receive Financial aid </label>
     <br>
