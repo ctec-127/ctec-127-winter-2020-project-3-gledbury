@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         array_push($error_bucket, "<p>Please enter your graduation date.</p>");
     } else {
         //assign posted result of phone# to phone variable
-        $phone = $db->real_escape_string($_POST['grdate']);
+        $grdate = $db->real_escape_string($_POST['grdate']);
     }
 
 
