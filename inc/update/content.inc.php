@@ -57,14 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted result of phone# to phone variable
         $phone = $db->real_escape_string($_POST['phone']);
     }
-    if (empty($_POST['degree_program'])) {
-        // no degree selected...into the bucket you go
-        array_push($error_bucket, "<p>A Degree program is required.</p>");
-        // $degree_program = '';
-    } else {
-        // assign selected degree program to degree_program variable
-        $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
-    }
+    // if (empty($_POST['degree_program'])) {
+    //     // no degree selected...into the bucket you go
+    //     array_push($error_bucket, "<p>A Degree program is required.</p>");
+    //     // $degree_program = '';
+    // } else {
+    //     // assign selected degree program to degree_program variable
+    //     $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
+    // }
+    $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
 
     if (empty($_POST['gpa'])) {
         //same results as above if not entered       
@@ -73,14 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted gpa to gpa variable
         $gpa = $db->real_escape_string($_POST['gpa']);
     }
-    if (empty($_POST['grdate'])) {
-        // no phone # entered...into the bucket you go
-        array_push($error_bucket, "<p>Please enter your graduation date.</p>");
-    } else {
-        //assign posted result of phone# to phone variable
-        $grdate = $db->real_escape_string($_POST['grdate']);
-    }
-
+    // if (empty($_POST['grdate'])) {
+    //     // no phone # entered...into the bucket you go
+    //     array_push($error_bucket, "<p>Please enter your graduation date.</p>");
+    // } else {
+    //     //assign posted result of phone# to phone variable
+    //     $grdate = $db->real_escape_string($_POST['grdate']);
+    // }
+    $grdate = $_POST['grdate'];
 
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {

@@ -13,19 +13,19 @@ http://php.net/manual/en/language.operators.comparison.php#language.operators.co
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
     <label class="col-form-label" for="first">First Name </label>
     <!-- the echo issets ternaries make the textboxes sticky -->
-    <input class="form-control" type="text" id="first" name="first" value="<?php echo (isset($first) ? $first : ''); ?>">
+    <input class="form-control" type="text" id="first" name="first" placeholder="Enter first name here" value="<?php echo (isset($first) ? $first : ''); ?>">
     <br>
     <label class="col-form-label" for="last">Last Name </label>
-    <input class="form-control" type="text" id="last" name="last" value="<?php echo (isset($last) ? $last : ''); ?>">
+    <input class="form-control" type="text" id="last" name="last" placeholder="Enter last name here" value="<?php echo (isset($last) ? $last : ''); ?>">
     <br>
     <label class="col-form-label" for="sid">Student ID </label>
-    <input class="form-control" type="text" id="sid" name="sid" value="<?php echo (isset($sid) ? $sid : ''); ?>">
+    <input class="form-control" type="text" id="sid" name="sid" placeholder="Enter phone number here" value="<?php echo (isset($sid) ? $sid : ''); ?>">
     <br>
     <label class="col-form-label" for="email">Email </label>
-    <input class="form-control" type="text" id="email" name="email" value="<?php echo (isset($email) ? $email : ''); ?>">
+    <input class="form-control" type="email" id="email" name="email" placeholder="Enter a valid email here" value="<?php echo (isset($email) ? $email : ''); ?>">
     <br>
     <label class="col-form-label" for="phone">Phone </label>
-    <input class="form-control" type="text" id="phone" name="phone" value="<?php echo (isset($phone) ? $phone : ''); ?>">
+    <input class="form-control" type="tel" id="phone" name="phone" placeholder="Please enter a valid phone number (123)456-7890" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" value="<?php echo (isset($phone) ? $phone : ''); ?>">
     <br>
     <label class="col-form-label" for="degree_program">Degree Program </label>
     <br>
@@ -41,7 +41,7 @@ http://php.net/manual/en/language.operators.comparison.php#language.operators.co
     <br><br>
     <label class="col-form-label" for="gpa">GPA </label>
     <!-- <input class="form-control" type="text" id="gpa" name="gpa" value="<?php echo (isset($gpa) ? $gpa : ''); ?>"> -->
-    <input class="form-control" type="float" id="gpa" name="gpa" min="0.0" max="4.0"value="<?php echo (isset($gpa) ? $gpa : ''); ?>">
+    <input class="form-control" type="float" id="gpa" name="gpa" min="0.0" max="4.0" placeholder="Enter gpa here" value="<?php echo (isset($gpa) ? $gpa : ''); ?>">
 
     <br>
     <label class="col-form-label" for="financial_aid">Do You Receive Financial aid </label>

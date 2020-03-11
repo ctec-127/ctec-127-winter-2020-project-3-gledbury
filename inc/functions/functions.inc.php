@@ -36,13 +36,19 @@ function display_record_table($result)
 
     echo '<div class="table-responsive">';
     echo "<table class=\"table table-striped table-hover table-sm mt-3 table-bordered\">";
-    echo '<thead class="thead-dark"><tr><th class="bg-primary">Actions</th><th><a href="?sortby=student_id">Student ID</a></th><th><a href="?sortby=first_name">First Name</a></th><th><a href="?sortby=last_name">Last Name</a></th><th><a href="?sortby=email">Email</a></th><th><a href="?sortby=phone">Phone</a></th><th><a href="?sortby=degree_program">Degree Program</a></th><th><a href="?sortby=gpa">GPA</a></th><th><a href="?sortby=financial_aid">Financial Aid</a></th><th><a href="?sortby=grdate">Graduation Date</a></th></tr></thead>';
+    echo '<thead class="thead-dark"><tr><th class="bg-primary">Actions</th><th><a href="?sortby=student_id">Student ID</a></th><th><a href="?sortby=first_name">First Name</a></th><th><a href="?sortby=last_name">Last Name</a></th><th><a href="?sortby=email">Email</a></th><th><a href="?sortby=phone">Phone</a></th><th><a href="?sortby=degree_program">Degree Program</a></th><th class="text-center"><a href="?sortby=gpa">GPA</a></th><th><a href="?sortby=financial_aid">Financial Aid</a></th><th><a href="?sortby=grdate">Graduation Date</a></th></tr></thead>';
     # $row will be an associative array containing one row of data at a time
     while ($row = $result->fetch_assoc()) {
         if ($row['financial_aid'] == '1') {
             $row['financial_aid'] = 'YES';
         } else {
             $row['financial_aid'] = 'NO';
+        }
+        $gpa = number_format($row['gpa'], 2);
+        if ($gpa <= 1.0) {
+            $gpa = '<td class="bg-warningtext-center">' . $gpa . '</td>';
+        } else {
+            $gpa = "<td class=\"text-center\">$gpa</td>";
         }
         # display rows and columns of data
         echo '<tr>';
