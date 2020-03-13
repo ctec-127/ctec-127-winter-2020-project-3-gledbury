@@ -47,11 +47,11 @@ function display_record_table($result)
         $gpa = number_format($row['gpa'], 2);
         if ($gpa <= 1.0) {
             $gpa = '<td class="bg-danger text-white text-center">' . $gpa . '</td>';
-        } else if ($gpa == 4){
+        } else if ($gpa == 4) {
             $gpa = "<td class=\"text-center text-white bg-success\">$gpa</td>";
         } else {
             $gpa = "<td class=\"bg-warning text-center\">$gpa</td>";
-    }
+        }
         $graduation_date = $row['graduation_date'];
         if ($graduation_date == '0000-00-00') {
             $graduation_date = '';
@@ -59,7 +59,7 @@ function display_record_table($result)
         # display rows and columns of data
         echo '<tr>';
         echo "<td><a href=\"update-record.php?id={$row['id']}\">Update</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href=\"delete-record.php?id={$row['id']}\" onclick=\"return confirm('Are you sure?');\">Delete</a></td>";
-        echo "<td>{$row['student_id']}</td>";
+        echo "<td>{$row['sid']}</td>";
         echo "<td><strong>{$row['first_name']}</strong></td>";
         echo "<td><strong>{$row['last_name']}</strong></td>";
         echo "<td>{$row['email']}</td>";

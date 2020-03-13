@@ -12,16 +12,15 @@ $error_bucket = [];
 $financial_aid_yes = '';
 $financial_aid_no = '';
 $degree_program = '';
-$financial_aid = '';
-
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    // get id from POST
+
+    $id = $_POST['id'];
+
     // First insure that all required fields are filled in
     // series of ifelse statements to either add to error bucket or post input
-    if (!empty($_POST['id'])) {
-        $id = $_POST['id'];
-    }
 
     if (empty($_POST['first'])) {
         //no first name entered..into the error bucket you go
@@ -38,12 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // assign the last name posted result to last name variable
         $last = $db->real_escape_string($_POST['last']);
     }
-    if (empty($_POST['student_id'])) {
+    if (empty($_POST['sid'])) {
         // no student id entered..into the bucket you go
         array_push($error_bucket, "<p>A student ID is required.</p>");
     } else {
         // assign the posted result of the id field to the id variable
-        $sid = $db->real_escape_string($_POST['student_id']);
+        $sid = $db->real_escape_string($_POST['sid']);
     }
     if (empty($_POST['email'])) {
         // no email entered...into the bucket you go
@@ -59,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted result of phone# to phone variable
         $phone = $db->real_escape_string($_POST['phone']);
     }
-    
+
     $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
 
     if (empty($_POST['gpa'])) {
@@ -69,35 +68,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted gpa to gpa variable
         $gpa = $db->real_escape_string($_POST['gpa']);
     }
-    // if (!isset($_POST['financial_aid'])) {       
-    //     array_push($error_bucket,"<p>Financial Aid -  please check yes or no.</p>");
 
-    // } else {
-    //     if ($_POST['financial_aid'] == '1') {
-    //         $yes = 'checked';
-    //         $no = '';
-    //     } elseif ($_POST['financial_aid'] == '0') {
-    //         $no = 'checked';
-    //         $yes = '';
-    //     }
-    //     ;
-    //     $financial_aid = $db->real_escape_string($_POST['financial_aid']);
-        
-    // }
-    
+    if (!isset($_POST['financial_aid'])) {
+        array_push($error_bucket, "<p>Financial Aid -  please check yes or no.</p>");
+    } else {
+        if ($_POST['financial_aid'] == 'yes') {
+            $financial_aid_yes = 1;
+            $financial_aid_no = 0;
+            $financial_aid = 1;
+        } elseif ($_POST['financial_aid'] == 'no') {
+            $financial_aid_no = 1;
+            $financial_aid_yes = 0;
+            $financial_aid = 0;
+        }
+    }
+
     $graduation_date = $_POST['graduation_date'];
 
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
         // entering the values entered into the corresponding fields
-        $sql = "UPDATE $db_table SET first_name='$first', last_name='$last', student_id=$sid, email='$email', phone='$phone', degree_program='$degree_program', gpa='$gpa', financial_aid='$financial_aid', graduation_date='$graduation_date' WHERE id=$id";
-        // $sql .= "VALUES ('$first','$last',$sid,'$email','$phone','$degree_program','$gpa','$financial_aid')";
-
-        // comment in for debug of SQL
-        //echo $sql;
-
+        $sql = "UPDATE $db_table SET first_name='$first',last_name='$last',sid=$sid,email='$email',phone='$phone',gpa=$gpa,degree_program='$degree_program',financial_aid=$financial_aid,graduation_date='$graduation_date' WHERE id=$id";
         // assign the database query results to the result variable
+        // echo $sql;
         $result = $db->query($sql);
 
         // if entry error alert the following statement
@@ -108,19 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         } else {
             // if successful data entry alert the following message
             header("location: display-records.php?message=The record was successfully updated for $first.");
-            // reset the following variable upon successful data entry
-            unset($first);
-            unset($last);
-            unset($sid);
-            unset($email);
-            unset($phone);
-            unset($degree_program);
-            unset($gpa);
-            unset($financial_aid);
-            unset($graduation_date);
-            unset($id);
-            $financial_aid_yes = '';
-            $financial_aid_no = '';
         }
     } else {
         display_error_bucket($error_bucket);
@@ -131,29 +112,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // now we need to query the database and get the data for the record
     // note limit 1
     $sql = "SELECT * FROM $db_table WHERE id=$id LIMIT 1";
+
     // query database
     $result = $db->query($sql);
     // get the one row of data
     while ($row = $result->fetch_assoc()) {
-        
         $first = $row['first_name'];
         $last = $row['last_name'];
-        $sid = $row['student_id'];
+        $sid = $row['sid'];
         $email = $row['email'];
         $phone = $row['phone'];
         $degree_program = $row['degree_program'];
         $gpa = $row['gpa'];
         $financial_aid = $row['financial_aid'];
         $graduation_date = $row['graduation_date'];
-    }
-    if (!isset($financial_aid)) {
-        array_push($error_bucket, "<p>Financial Aid -  please check yes or no.</p>");
-    } else {
-        if ($financial_aid == 'yes') {
-            $financial_aid_yes = 'checked';
-        } elseif ($financial_aid == 'no') {
-            $financial_aid_no = 'checked';
+        if ($financial_aid == 1) {
+            $financial_aid_yes = 1;
+            $financial_aid_no = 0;
+        } else if ($financial_aid == 0) {
+            $financial_aid_no = 1;
+            $financial_aid_yes = 0;
         }
-
     }
 }

@@ -30,12 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // assign the last name posted result to last name variable
         $last = $db->real_escape_string(strip_tags($_POST['last']));
     }
-    if (empty($_POST['student_id'])) {
+    if (empty($_POST['sid'])) {
         // no student id entered..into the bucket you go
         array_push($error_bucket, "<p>A student ID is required.</p>");
     } else {
         // assign the posted result of the id field to the id variable
-        $sid = $db->real_escape_string(strip_tags($_POST['student_id']));
+        $sid = $db->real_escape_string(strip_tags($_POST['sid']));
     }
     if (empty($_POST['email'])) {
         // no email entered...into the bucket you go
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted result of phone# to phone variable
         $phone = $db->real_escape_string(strip_tags($_POST['phone']));
     }
-    
+
     $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
 
     if (empty($_POST['gpa'])) {
@@ -76,13 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     $graduation_date = $_POST['graduation_date'];
-    
 
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
         // entering the values entered into the corresponding fields
-        $sql = "INSERT INTO $db_table (first_name,last_name,student_id,email,phone,degree_program,gpa,financial_aid,graduation_date) ";
+        $sql = "INSERT INTO $db_table (first_name,last_name,sid,email,phone,degree_program,gpa,financial_aid,graduation_date) ";
         $sql .= "VALUES ('$first','$last',$sid,'$email','$phone','$degree_program','$gpa',$financial_aid,'$graduation_date')";
 
         // comment in for debug of SQL
