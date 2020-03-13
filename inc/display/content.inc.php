@@ -30,7 +30,7 @@ if ($result->num_rows == 0) {
     } else {
         $text = " - last names starting with $filter";
     }
-    echo "<h2 class=\"mt-4 alert alert-primary\">$result->num_rows Records" . $text . '</h2>';
+    echo "<h2 class=\"mt-4 alert alert-success\">$result->num_rows Records" . $text . '</h2>';
 }
 
 // display alphabet filters

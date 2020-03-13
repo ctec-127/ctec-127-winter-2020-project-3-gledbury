@@ -1,7 +1,7 @@
 <?php // Filename: navbar.inc.php 
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="display-records.php">CTEC 127</a>
+  <a class="navbar-brand" href="display-records.php">Student Record Manager</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -25,8 +25,8 @@
           <a class="dropdown-item" href="https://getbootstrap.com">Bootstrap</a>
         </div>
       </li>
-      <li class="nav-item <?= echoActiveClassIfRequestMatches("advanced-search-records"); ?>">
-        <a class="nav-link" href="advanced-search-records.php">Advanced Search <span class="sr-only">(current)</span></a>
+      <li class="nav-item <?= echoActiveClassIfRequestMatches("advanced-search"); ?>">
+        <a class="nav-link" href="advanced-search.php">Advanced Search <span class="sr-only">(current)</span></a>
       </li>>
 
       < </ul> <form action="search-records.php" method="POST" class="form-inline my-2 my-lg-0">

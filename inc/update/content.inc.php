@@ -1,17 +1,19 @@
 <?php // Filename: connect.inc.php
 // the following files are needed to process the db correctly
 require_once __DIR__ . "/../db/mysqli_connect.inc.php";
-// require_once __DIR__ . "/../functions/functions.inc.php";
+require_once __DIR__ . "/../functions/functions.inc.php";
 require_once __DIR__ . "/../app/config.inc.php";
+
 
 $error_bucket = [];
 
 // http://php.net/manual/en/mysqli.real-escape-string.php
 // set the following variables to an empty string
-$yes = '';
-$no = '';
+$financial_aid_yes = '';
+$financial_aid_no = '';
 $degree_program = '';
 $financial_aid = '';
+
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -36,12 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // assign the last name posted result to last name variable
         $last = $db->real_escape_string($_POST['last']);
     }
-    if (empty($_POST['sid'])) {
+    if (empty($_POST['student_id'])) {
         // no student id entered..into the bucket you go
         array_push($error_bucket, "<p>A student ID is required.</p>");
     } else {
         // assign the posted result of the id field to the id variable
-        $sid = $db->real_escape_string($_POST['sid']);
+        $sid = $db->real_escape_string($_POST['student_id']);
     }
     if (empty($_POST['email'])) {
         // no email entered...into the bucket you go
@@ -57,14 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted result of phone# to phone variable
         $phone = $db->real_escape_string($_POST['phone']);
     }
-    // if (empty($_POST['degree_program'])) {
-    //     // no degree selected...into the bucket you go
-    //     array_push($error_bucket, "<p>A Degree program is required.</p>");
-    //     // $degree_program = '';
-    // } else {
-    //     // assign selected degree program to degree_program variable
-    //     $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
-    // }
+    
     $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
 
     if (empty($_POST['gpa'])) {
@@ -74,20 +69,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted gpa to gpa variable
         $gpa = $db->real_escape_string($_POST['gpa']);
     }
-    // if (empty($_POST['grdate'])) {
-    //     // no phone # entered...into the bucket you go
-    //     array_push($error_bucket, "<p>Please enter your graduation date.</p>");
+    // if (!isset($_POST['financial_aid'])) {       
+    //     array_push($error_bucket,"<p>Financial Aid -  please check yes or no.</p>");
+
     // } else {
-    //     //assign posted result of phone# to phone variable
-    //     $grdate = $db->real_escape_string($_POST['grdate']);
+    //     if ($_POST['financial_aid'] == '1') {
+    //         $yes = 'checked';
+    //         $no = '';
+    //     } elseif ($_POST['financial_aid'] == '0') {
+    //         $no = 'checked';
+    //         $yes = '';
+    //     }
+    //     ;
+    //     $financial_aid = $db->real_escape_string($_POST['financial_aid']);
+        
     // }
-    $grdate = $_POST['grdate'];
+    
+    $graduation_date = $_POST['graduation_date'];
 
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
         // entering the values entered into the corresponding fields
-        $sql = "UPDATE $db_table SET first_name='$first', last_name='$last', student_id=$sid, email='$email', phone='$phone', degree_program='$degree_program', gpa='$gpa', financial_aid='$financial_aid', grdate='$grdate' WHERE id=$id";
+        $sql = "UPDATE $db_table SET first_name='$first', last_name='$last', student_id=$sid, email='$email', phone='$phone', degree_program='$degree_program', gpa='$gpa', financial_aid='$financial_aid', graduation_date='$graduation_date' WHERE id=$id";
         // $sql .= "VALUES ('$first','$last',$sid,'$email','$phone','$degree_program','$gpa','$financial_aid')";
 
         // comment in for debug of SQL
@@ -103,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $db->error . '.</div>';
         } else {
             // if successful data entry alert the following message
-            header("location: display-records.php?message=The record was successfully updated");
+            header("location: display-records.php?message=The record was successfully updated for $first.");
             // reset the following variable upon successful data entry
             unset($first);
             unset($last);
@@ -113,10 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             unset($degree_program);
             unset($gpa);
             unset($financial_aid);
-            unset($grdate);
+            unset($graduation_date);
             unset($id);
-            $yes = '';
-            $no = '';
+            $financial_aid_yes = '';
+            $financial_aid_no = '';
         }
     } else {
         display_error_bucket($error_bucket);
@@ -131,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = $db->query($sql);
     // get the one row of data
     while ($row = $result->fetch_assoc()) {
-
+        
         $first = $row['first_name'];
         $last = $row['last_name'];
         $sid = $row['student_id'];
@@ -140,17 +144,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $degree_program = $row['degree_program'];
         $gpa = $row['gpa'];
         $financial_aid = $row['financial_aid'];
-        $grdate = $row['grdate'];
+        $graduation_date = $row['graduation_date'];
     }
     if (!isset($financial_aid)) {
         array_push($error_bucket, "<p>Financial Aid -  please check yes or no.</p>");
     } else {
-        if ($financial_aid == '1') {
-            $yes = 'checked';
-        } elseif ($financial_aid == '0') {
-            $no = 'checked';
+        if ($financial_aid == 'yes') {
+            $financial_aid_yes = 'checked';
+        } elseif ($financial_aid == 'no') {
+            $financial_aid_no = 'checked';
         }
 
-        // $financial_aid = $db->real_escape_string(strip_tags($_POST['financial_aid']) == '1');
     }
 }

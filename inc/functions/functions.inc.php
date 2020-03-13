@@ -36,19 +36,25 @@ function display_record_table($result)
 
     echo '<div class="table-responsive">';
     echo "<table class=\"table table-striped table-hover table-sm mt-3 table-bordered\">";
-    echo '<thead class="thead-dark"><tr><th class="bg-primary">Actions</th><th><a href="?sortby=student_id">Student ID</a></th><th><a href="?sortby=first_name">First Name</a></th><th><a href="?sortby=last_name">Last Name</a></th><th><a href="?sortby=email">Email</a></th><th><a href="?sortby=phone">Phone</a></th><th><a href="?sortby=degree_program">Degree Program</a></th><th class="text-center"><a href="?sortby=gpa">GPA</a></th><th><a href="?sortby=financial_aid">Financial Aid</a></th><th><a href="?sortby=grdate">Graduation Date</a></th></tr></thead>';
+    echo '<thead class="thead-dark"><tr><th class="bg-primary">Actions</th><th><a href="?sortby=student_id">Student ID</a></th><th><a href="?sortby=first_name">First Name</a></th><th><a href="?sortby=last_name">Last Name</a></th><th><a href="?sortby=email">Email</a></th><th><a href="?sortby=phone">Phone</a></th><th><a href="?sortby=degree_program">Degree Program</a></th><th class="text-center"><a href="?sortby=gpa">GPA</a></th><th><a href="?sortby=financial_aid">Financial Aid</a></th><th><a href="?sortby=graduation_date">Graduation Date</a></th></tr></thead>';
     # $row will be an associative array containing one row of data at a time
     while ($row = $result->fetch_assoc()) {
         if ($row['financial_aid'] == '1') {
-            $row['financial_aid'] = 'YES';
+            $financial_aid = 'Y';
         } else {
-            $row['financial_aid'] = 'NO';
+            $financial_aid = 'N';
         }
         $gpa = number_format($row['gpa'], 2);
         if ($gpa <= 1.0) {
-            $gpa = '<td class="bg-warningtext-center">' . $gpa . '</td>';
+            $gpa = '<td class="bg-danger text-white text-center">' . $gpa . '</td>';
+        } else if ($gpa == 4){
+            $gpa = "<td class=\"text-center text-white bg-success\">$gpa</td>";
         } else {
-            $gpa = "<td class=\"text-center\">$gpa</td>";
+            $gpa = "<td class=\"bg-warning text-center\">$gpa</td>";
+    }
+        $graduation_date = $row['graduation_date'];
+        if ($graduation_date == '0000-00-00') {
+            $graduation_date = '';
         }
         # display rows and columns of data
         echo '<tr>';
@@ -58,10 +64,12 @@ function display_record_table($result)
         echo "<td><strong>{$row['last_name']}</strong></td>";
         echo "<td>{$row['email']}</td>";
         echo "<td>{$row['phone']}</td>";
-        echo "<td>{$row['degree_program']}</td>";
-        echo "<td>{$row['gpa']}</td>";
-        echo "<td>{$row['financial_aid']}</td>";
-        echo "<td>{$row['grdate']}</td>";
+        // echo "<td>{$row['degree_program']}</td>";
+        echo ($row['degree_program']) ? "<td>{$row['degree_program']}</td>" : '<td>Undeclared</td>';
+        echo $gpa;
+        // echo ($row['financial_aid'] == 1) ? "<td class=\"text-center\"><i class=\"fas fa-check financial_aid\"></i></td>" : "<td></td>";
+        echo "<td class=\"text-center\">$financial_aid</td>";
+        echo "<td>$graduation_date</td>";
         echo '</tr>';
     } // end while
     // closing table tag and div

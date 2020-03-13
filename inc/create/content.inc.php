@@ -1,15 +1,15 @@
 <?php // Filename: connect.inc.php
 // the following files are needed to process the db correctly
 require_once __DIR__ . "/../db/mysqli_connect.inc.php";
-// require_once __DIR__ . "/../functions/functions.inc.php";
+require_once __DIR__ . "/../functions/functions.inc.php";
 require_once __DIR__ . "/../app/config.inc.php";
 
 $error_bucket = [];
 
 // http://php.net/manual/en/mysqli.real-escape-string.php
 // set the following variables to an empty string
-$yes = '';
-$no = '';
+$financial_aid_yes = '';
+$financial_aid_no = '';
 $degree_program = '';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -30,12 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // assign the last name posted result to last name variable
         $last = $db->real_escape_string(strip_tags($_POST['last']));
     }
-    if (empty($_POST['sid'])) {
+    if (empty($_POST['student_id'])) {
         // no student id entered..into the bucket you go
         array_push($error_bucket, "<p>A student ID is required.</p>");
     } else {
         // assign the posted result of the id field to the id variable
-        $sid = $db->real_escape_string(strip_tags($_POST['sid']));
+        $sid = $db->real_escape_string(strip_tags($_POST['student_id']));
     }
     if (empty($_POST['email'])) {
         // no email entered...into the bucket you go
@@ -51,14 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         //assign posted result of phone# to phone variable
         $phone = $db->real_escape_string(strip_tags($_POST['phone']));
     }
-    // if (empty($_POST['degree_program'])) {
-    //     // no degree selected...into the bucket you go
-    //     array_push($error_bucket, "<p>A Degree program is required.</p>");
-    //     $degree_program = '';
-    // } else {
-    //     // assign selected degree program to degree_program variable
-    //     $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
-    // }
+    
     $degree_program = $db->real_escape_string(strip_tags($_POST['degree_program']));
 
     if (empty($_POST['gpa'])) {
@@ -71,32 +64,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!isset($_POST['financial_aid'])) {
         array_push($error_bucket, "<p>Financial Aid -  please check yes or no.</p>");
     } else {
-        if ($_POST['financial_aid'] == '1') {
-            $yes = 'checked';
-            $no = '';
-        } elseif ($_POST['financial_aid'] == '0') {
-            $no = 'checked';
-            $yes = '';
+        if ($_POST['financial_aid'] == 'yes') {
+            $financial_aid_yes = '1';
+            $financial_aid_no = '0';
+        } elseif ($_POST['financial_aid'] == 'no') {
+            $financial_aid_no = '1';
+            $financial_aid_yes = '0';
         }
 
-        $financial_aid = $db->real_escape_string(strip_tags($_POST['financial_aid']) == '1');
+        $financial_aid = $db->real_escape_string(strip_tags($_POST['financial_aid']) == 'yes');
     }
 
-    $grdate = $_POST['grdate'];
-    // if (empty($_POST['grdate'])) {
-    //     // gr date not entered...into the bucket you go
-    //     array_push($error_bucket, "<p>Please enter a graduation date</p>");
-    // } else {
-    //     //assign posted result of gr date to grdate variable
-    //     $grdate = $db->real_escape_string(strip_tags($_POST['grdate']));
-    // }
+    $graduation_date = $_POST['graduation_date'];
+    
 
     // If we have no errors than we can try and insert the data
     if (count($error_bucket) == 0) {
         // Time for some SQL
         // entering the values entered into the corresponding fields
-        $sql = "INSERT INTO $db_table (first_name,last_name,student_id,email,phone,degree_program,gpa,financial_aid,grdate) ";
-        $sql .= "VALUES ('$first','$last',$sid,'$email','$phone','$degree_program','$gpa','$financial_aid','$grdate')";
+        $sql = "INSERT INTO $db_table (first_name,last_name,student_id,email,phone,degree_program,gpa,financial_aid,graduation_date) ";
+        $sql .= "VALUES ('$first','$last',$sid,'$email','$phone','$degree_program','$gpa',$financial_aid,'$graduation_date')";
 
         // comment in for debug of SQL
         //echo $sql;
@@ -123,9 +110,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             unset($degree_program);
             unset($gpa);
             unset($financial_aid);
-            unset($grdate);
-            $yes = '';
-            $no = '';
+            unset($graduation_date);
+            $financial_aid_yes = '';
+            $financial_aid_no = '';
         }
     } else {
         display_error_bucket($error_bucket);
