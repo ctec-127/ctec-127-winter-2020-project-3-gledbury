@@ -1,5 +1,4 @@
 <?php // Filename: update-record.php
-// echo 'This page not implemented yet. :(';
 $pageTitle = "Update Record";
 require_once 'inc/layout/header.inc.php'; 
 ?>

@@ -64,10 +64,8 @@ function display_record_table($result)
         echo "<td><strong>{$row['last_name']}</strong></td>";
         echo "<td>{$row['email']}</td>";
         echo "<td>{$row['phone']}</td>";
-        // echo "<td>{$row['degree_program']}</td>";
         echo ($row['degree_program']) ? "<td>{$row['degree_program']}</td>" : '<td>Undeclared</td>';
         echo $gpa;
-        // echo ($row['financial_aid'] == 1) ? "<td class=\"text-center\"><i class=\"fas fa-check financial_aid\"></i></td>" : "<td></td>";
         echo "<td class=\"text-center\">$financial_aid</td>";
         echo "<td>$graduation_date</td>";
         echo '</tr>';

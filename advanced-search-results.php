@@ -1,7 +1,7 @@
 <?php 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $result = $db->query($sql);
-    // var_dump($results);
+    // var_dump($results); for debugging
     if ($result) {
         echo '<div class="alert alert-info">';
         echo '<h2>Search Results</h2>';

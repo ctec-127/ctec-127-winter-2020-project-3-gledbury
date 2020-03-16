@@ -31,9 +31,7 @@
 
       < </ul> <form action="search-records.php" method="POST" class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Name Search" name="search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        <!-- <input class="form-control mr-sm-2" type="advanced_search" placeholder="Advanced Search" name="advanced_search" aria-label="Advanced Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Advanced_Search</button> -->
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
   </div>
 </nav>

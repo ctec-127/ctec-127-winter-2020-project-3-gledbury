@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // entering the values entered into the corresponding fields
         $sql = "UPDATE $db_table SET first_name='$first',last_name='$last',sid=$sid,email='$email',phone='$phone',gpa=$gpa,degree_program='$degree_program',financial_aid=$financial_aid,graduation_date='$graduation_date' WHERE id=$id";
         // assign the database query results to the result variable
-        // echo $sql;
+        // echo $sql; for debug
         $result = $db->query($sql);
 
         // if entry error alert the following statement
