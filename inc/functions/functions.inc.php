@@ -54,7 +54,7 @@ function display_record_table($result)
         }
         $graduation_date = $row['graduation_date'];
         if ($graduation_date == '0000-00-00') {
-            $graduation_date = '';
+            $graduation_date = 'To be determined';
         }
         # display rows and columns of data
         echo '<tr>';
