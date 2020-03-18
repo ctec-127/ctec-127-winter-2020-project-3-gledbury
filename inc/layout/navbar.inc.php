@@ -15,16 +15,16 @@
         <a class=" nav-link" href="create-record.php">Create Record</a>
       </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Resources
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="http://ctec.clark.edu/CTEC122">CTEC 122 Resources</a>
-          <a class="dropdown-item" href="http://php.net">PHP.net</a>
-          <a class="dropdown-item" href="https://getbootstrap.com">Bootstrap</a>
-        </div>
-      </li>
+      <!-- <li class="nav-item dropdown"> -->
+        <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+          <!-- Resources -->
+        <!-- </a> -->
+        <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
+          <!-- <a class="dropdown-item" href="http://ctec.clark.edu/CTEC122">CTEC 122 Resources</a> -->
+          <!-- <a class="dropdown-item" href="http://php.net">PHP.net</a> -->
+          <!-- <a class="dropdown-item" href="https://getbootstrap.com">Bootstrap</a> -->
+        <!-- </div> -->
+      <!-- </li> -->
       <li class="nav-item <?= echoActiveClassIfRequestMatches("advanced-search"); ?>">
         <a class="nav-link" href="advanced-search.php">Advanced Search <span class="sr-only">(current)</span></a>
       </li>>

@@ -44,7 +44,7 @@ if (basename($_SERVER['PHP_SELF']) == 'create-record.php') {
         <option value="Computer Support" <?php echo ($degree_program == 'Computer Support' ? 'selected' : ''); ?>>Computer Support</option>
         <option value="Digital Media Arts" <?php echo ($degree_program == 'Digital Media Arts' ? 'selected' : ''); ?>>Digital Media Arts</option>
     </select>
-    <br><br>
+    <br>
     <label class="col-form-label" for="gpa">GPA </label>
     <!-- <input class="form-control" type="text" id="gpa" name="gpa" value=""> -->
     <input class="form-control" type="number" step="0.01" min="0" max="4" id="gpa" name="gpa" placeholder="Enter gpa here" value="<?php echo (isset($gpa) ? $gpa : ''); ?>">
@@ -52,11 +52,13 @@ if (basename($_SERVER['PHP_SELF']) == 'create-record.php') {
     <br>
     <p>Financial Aid</p>
     <!-- the echo issets ternaries make the buttons sticky   -->
-    <input type="radio" name="financial_aid" title="select yes or no" id="financial_aid_yes" value="yes" <?php echo $financial_aid_yes == 1 ? 'checked' : '' ?>>&nbsp;&nbsp;Yes
-    <br><br>
-    <input type="radio" name="financial_aid" title="select yes or no" id="financial_aid_no" value="no" <?php echo $financial_aid_no == 1 ? 'checked' : '' ?>>&nbsp;&nbsp;No
-    <br><br>
+    
+    <input type="radio" name="financial_aid" title="select yes or no" id="financial_aid_yes" value="yes" <?php echo $financial_aid_yes == 1 ? 'checked' : '' ?>>&nbsp;&nbsp;<label for="financial_aid_yes">Yes</label>
     <br>
+    
+    <input type="radio" name="financial_aid" title="select yes or no" id="financial_aid_no" value="no" <?php echo $financial_aid_no == 1 ? 'checked' : '' ?>>&nbsp;&nbsp;<label for="financial_aid_no">No</label>
+    <br>
+    
     <label class="col-form-label" for="graduation_date">Graduation Date </label>
     <input class="form-control" type="date" id="graduation_date" name="graduation_date" value="<?= isset($graduation_date) ? $graduation_date : ''; ?>">
     <br>
